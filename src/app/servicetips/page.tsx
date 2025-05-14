@@ -78,7 +78,7 @@ const Home = () => {
             feedbacks.map((fb, idx) => (
               <Card key={idx} className="bg-neutral-900 border border-gray-700">
                 <CardContent className="p-4">
-                  <p className="text-gray-300 italic">"{fb.message}"</p>
+                  <p className="text-gray-300 italic">{fb.message}</p>
                   <p className="text-sm text-gray-500 text-right mt-2">
                     — {fb.name}
                   </p>
