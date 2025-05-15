@@ -61,18 +61,35 @@ const AdminPage = () => {
   };
 
   useEffect(() => {
-    const isAuthenticated = localStorage.getItem("auth") === "true";
-    if (!isAuthenticated) {
-      router.push("/login");
-    } else {
-      setAuthenticated(true);
+    try {
+      const isAuthenticated = localStorage.getItem("auth") === "true";
+      if (!isAuthenticated) {
+        router.push("/login");
+      } else {
+        setAuthenticated(true);
+      }
+    } catch (error) {
+      console.error("Error checking authentication:", error);
+    } finally {
       setLoading(false);
     }
   }, [router]);
 
-  if (loading) return null;
+  if (loading) {
+    return (
+      <div className="h-screen flex items-center justify-center text-white">
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
-  if (!authenticated) return null;
+  if (!authenticated) {
+    return (
+      <div className="h-screen flex items-center justify-center text-white">
+        <p>Redirecting to login...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-6xl flex flex-row mx-auto p-6 text-white space-y-12">

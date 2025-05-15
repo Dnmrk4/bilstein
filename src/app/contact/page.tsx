@@ -8,6 +8,9 @@ export default function ContactPage() {
     email: "",
     message: "",
   });
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -15,10 +18,33 @@ export default function ContactPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert("Message submitted successfully!");
-    setFormData({ name: "", email: "", message: "" });
+    setLoading(true);
+    setError("");
+    setSuccess(false);
+
+    try {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSuccess(true);
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        const data = await response.json();
+        setError(data.error || "Failed to send message.");
+      }
+    } catch {
+      setError("An unexpected error occurred.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -76,9 +102,14 @@ export default function ContactPage() {
           <button
             type="submit"
             className="bg-red-700 text-white px-6 py-2 rounded-lg hover:bg-red-800 transition"
+            disabled={loading}
           >
-            Send Message
+            {loading ? "Sending..." : "Send Message"}
           </button>
+          {success && (
+            <p className="text-green-600 mt-4">Message sent successfully!</p>
+          )}
+          {error && <p className="text-red-600 mt-4">{error}</p>}
         </form>
       </section>
     </main>
