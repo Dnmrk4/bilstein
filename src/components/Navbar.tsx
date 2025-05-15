@@ -28,6 +28,9 @@ export default function Navbar() {
             <Link href="/services">Services</Link>
           </li>
           <li>
+            <Link href="/servicetips">Services Tips</Link>
+          </li>
+          <li>
             <Link href="/feedback">Feedback</Link>
           </li>
           <li>
@@ -47,6 +50,13 @@ export default function Navbar() {
             className="block"
           >
             Services
+          </Link>
+          <Link
+            href="/servicetips"
+            onClick={() => setIsOpen(false)}
+            className="block"
+          >
+            Service Tips
           </Link>
           <Link
             href="/feedback"
