@@ -28,19 +28,11 @@ const AdminPage = () => {
   const [carouselImages, setCarouselImages] = useState<string[]>([]);
   const [newTip, setNewTip] = useState<Tip>({ title: "", content: "" });
   const [newImageURL, setNewImageURL] = useState("");
+
   const handleLogout = () => {
     localStorage.removeItem("auth");
     router.push("/login");
   };
-
-  useEffect(() => {
-    const isAuthenticated = localStorage.getItem("auth") === "true";
-    if (!isAuthenticated) {
-      router.push("/login");
-    } else {
-      setAuthenticated(true);
-    }
-  }, [router]);
 
   const handleAddTip = () => {
     if (newTip.title && newTip.content) {
@@ -68,21 +60,22 @@ const AdminPage = () => {
     setCarouselImages((prev) => prev.filter((_, i) => i !== index));
   };
 
-  if (!authenticated) return null;
   useEffect(() => {
     const isAuthenticated = localStorage.getItem("auth") === "true";
     if (!isAuthenticated) {
       router.push("/login");
     } else {
+      setAuthenticated(true);
       setLoading(false);
     }
   }, [router]);
 
   if (loading) return null;
 
+  if (!authenticated) return null;
+
   return (
     <div className="max-w-6xl flex flex-row mx-auto p-6 text-white space-y-12">
-      {" "}
       <h1 className="text-4xl font-bold text-center text-red-700">
         Admin Panel
       </h1>
