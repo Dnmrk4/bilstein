@@ -24,7 +24,6 @@ export default function LoginPage() {
         placeholder="Enter admin password"
         value={password}
         onChange={(e) => {
-          console.log(e.target.value); // Debugging: Log the input value
           setPassword(e.target.value);
         }}
       />
