@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Input from "@/components/ui/input";
 import Button from "@/components/ui/button";
@@ -140,7 +141,7 @@ const AdminPage = () => {
           {feedbacks.map((fb, idx) => (
             <Card key={idx} className="bg-neutral-900 border border-gray-700">
               <CardContent>
-                <p className="italic text-gray-300">"{fb.message}"</p>
+                <p className="italic text-gray-300">{fb.message}</p>
                 <p className="text-sm text-gray-500 text-right">- {fb.name}</p>
                 <Button
                   className="text-red-500 mt-2"
@@ -170,15 +171,20 @@ const AdminPage = () => {
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {carouselImages.map((img, idx) => (
-            <Card key={idx} className="relative">
-              <img
-                src={img}
-                alt={`carousel-${idx}`}
-                className="w-full h-40 object-cover rounded"
-              />
+            <Card
+              key={idx}
+              className="bg-neutral-900 border border-neutral-700"
+            >
               <CardContent>
+                <Image
+                  src={img}
+                  alt={`carousel-${idx}`}
+                  width={160}
+                  height={160}
+                  className="w-full h-40 object-cover rounded"
+                />
                 <Button
-                  className="text-red-500 bg-transparent"
+                  className="text-red-500 bg-transparent mt-2"
                   onClick={() => handleDeleteImage(idx)}
                 >
                   Remove
