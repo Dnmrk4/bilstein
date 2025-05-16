@@ -19,12 +19,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
       });
 
+      console.log("EMAIL_USER:", process.env.EMAIL_USER);
+      console.log("EMAIL_PASS:", process.env.EMAIL_PASS);
+
       // Email options
       const mailOptions = {
-        from: email,
-        to: "mutaidanmark@gmail.com", // Your email address
-        subject: `New Contact Form Submission from ${name}`,
-        text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
+        from: process.env.EMAIL_USER, // Use the sender's email address
+        to: "danmark.chemuren@gmail.com", // Your email address
+        replyTo: email, // Set the user's email address for replies
+        subject: `New massage from ${name} @ BMG | Official Website`,
+        text: `Replying to: ${email}\n${name}'s message: ${message}`,
       };
 
       // Send the email

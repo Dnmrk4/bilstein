@@ -1,6 +1,7 @@
 // app/contact/page.tsx
 "use client";
-import { useState } from "react";
+
+import React, { useState } from "react";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -19,7 +20,7 @@ export default function ContactPage() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent the default form submission behavior
     setLoading(true);
     setError("");
     setSuccess(false);
@@ -54,7 +55,7 @@ export default function ContactPage() {
           Contact Us
         </h1>
         <form
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit} // This will handle the Enter key press
           className="bg-white p-8 rounded-2xl shadow-lg text-blue-950 space-y-6"
         >
           <div>
@@ -100,7 +101,7 @@ export default function ContactPage() {
             ></textarea>
           </div>
           <button
-            type="submit"
+            type="submit" // This ensures the form is submitted when Enter is pressed
             className="bg-red-700 text-white px-6 py-2 rounded-lg hover:bg-red-800 transition"
             disabled={loading}
           >
